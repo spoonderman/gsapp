@@ -1,0 +1,16 @@
+Users can register, login and key in weight and date to be displayed in the database
+along with greenpoints and co2e. Values can now continuously increase as user keys in data.
+The continued data is under 3 new nodes known as cumulativeGreenpoints,cumulativeCo2e, total weight.
+
+
+
+TODO Data needs to be read in(MainScreen.dart, MainScreenBar.dart, Reward.dart)
+TODO Separation of logged in and logged out users
+
+TODO Switch accounts(refer to yellow box in Wireframe)
+TODO Get in Touch(refer to yellow box in Wireframe)
+TODO Ask Fiona and Jolene how they want the dropdown buttons to work
+TODO Ask Fiona and Jolene for Terms and Conditions and Privacy Policy
+TODO Ask Fiona and Jolene for link to social media/website under Source Separation 101(MainScreen.dart)
+
+

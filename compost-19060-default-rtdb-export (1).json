@@ -1,0 +1,73 @@
+{
+  "compostData": {
+    "U35MjLupWnY478LXACrMmGcx9Ww2": {
+      "-Nd0z-lct0UI4ppTEMPX": {
+        "co2e": "2.09",
+        "cumulativeCo2e": "2.09",
+        "cumulativeGreenPoints": "138.60",
+        "date": "1/1/23",
+        "greenpoints": "138.60",
+        "total weight": 1.1,
+        "userId": "U35MjLupWnY478LXACrMmGcx9Ww2",
+        "weight": 1.1
+      },
+      "-Nd0z1P0kRjeOAA6jDwA": {
+        "co2e": "3.80",
+        "cumulativeCo2e": "5.89",
+        "cumulativeGreenPoints": "390.60",
+        "date": "1/1/23",
+        "greenpoints": "252.00",
+        "total weight": 3.1,
+        "userId": "U35MjLupWnY478LXACrMmGcx9Ww2",
+        "weight": 2
+      }
+    }
+  },
+  "user": {
+    "-Nchts2MYAZrPSU47Fgl": {
+      "DUN": "",
+      "Parliamentary": "",
+      "accountType": "household",
+      "address": "Jalan Datuk Sulaiman 1",
+      "city": "Kuala Lumpur ",
+      "daerah": "",
+      "email": "abu@gmail.com",
+      "houseNo": "12",
+      "name": "Abu",
+      "password": "aaaaaa",
+      "phone": "0128765432",
+      "postcode": "60000",
+      "userId": "yC0Me9k8nuN086IWPahUw2DyL4r2"
+    },
+    "-NchuTbwkiUGHDgDuzOs": {
+      "DUN": "",
+      "Parliamentary": "",
+      "accountType": "business",
+      "address": "Lorong Aminuddin Baki",
+      "city": "Kuala Lumpur ",
+      "daerah": "",
+      "email": "bens@yahoo.com",
+      "houseNo": "32",
+      "name": "Bens",
+      "password": "bbbbbb",
+      "phone": "0135623887",
+      "postcode": "60000",
+      "userId": "ItORrDWT7saCCuu2KhPI5ell9UE3"
+    },
+    "-Ncl8pgwcL-6RW1llaKY": {
+      "DUN": "",
+      "Parliamentary": "",
+      "accountType": "household",
+      "address": "Jalan Athinahapan 4",
+      "city": "Kuala Lumpur ",
+      "daerah": "",
+      "email": "john@gmail.com",
+      "houseNo": "3",
+      "name": "John",
+      "password": "jjjjjj",
+      "phone": "0125432233",
+      "postcode": "60000",
+      "userId": "U35MjLupWnY478LXACrMmGcx9Ww2"
+    }
+  }
+}

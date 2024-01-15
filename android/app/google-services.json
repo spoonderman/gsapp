@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "574442334459",
+    "firebase_url": "https://compost-19060-default-rtdb.firebaseio.com",
+    "project_id": "compost-19060",
+    "storage_bucket": "compost-19060.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:574442334459:android:557a2c4b5c755607f8285e",
+        "android_client_info": {
+          "package_name": "com.example.compost_test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "574442334459-p779sfef60niqfnfcvej2hnf5l84r292.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_fy0a4kSMmmv8UZRi0uct3PfTe0sWRz0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "574442334459-p779sfef60niqfnfcvej2hnf5l84r292.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
