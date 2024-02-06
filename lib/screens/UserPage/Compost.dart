@@ -3,15 +3,14 @@
 // When user presses "submit" button, Reward.dart screen will pop up
 // Data is sent to the database under compostData node
 
-import 'package:compost_test/screens/UserPage/MainScreenBar.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:top_modal_sheet/top_modal_sheet.dart';
-import 'Reward.dart';
 // Does not contain bottom navigation bar
 
 class Compost extends StatefulWidget {
+  const Compost({super.key});
+
 
   @override
   State<Compost> createState() => _CompostState();
@@ -103,14 +102,14 @@ class _CompostState extends State<Compost> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color(0xffffffff),
+        backgroundColor: const Color(0xffffffff),
         body: Padding(
-          padding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+          padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 16,
                   width: 16,
                 ),
@@ -121,13 +120,13 @@ class _CompostState extends State<Compost> {
                       onPressed: () {
                         Navigator.pushNamed(context, 'MainScreenBar');
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.arrow_back,
                         color: Color(0xff4eb447),
                         size: 24,
                       ),
                     ),
-                    Image(
+                    const Image(
                       image: AssetImage('images/greensteps.png'),
                       height: 50,
                       width: 140,
@@ -135,15 +134,15 @@ class _CompostState extends State<Compost> {
                     ),
                   ],
                 ),
-                Divider(
+                const Divider(
                   color: Color(0xffd2dae2),
                   thickness: 3,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                   width: 16,
                 ),
-                Text(
+                const Text(
                   "Key in your food waste data:",
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
@@ -159,9 +158,9 @@ class _CompostState extends State<Compost> {
                     Container(
                       width: 130,
                       height: 50,
-                      padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                       decoration: BoxDecoration(
-                        color: Color(0xffffffff),
+                        color: const Color(0xffffffff),
                         borderRadius: BorderRadius.circular(0),
                       ),
                       child: DropdownButton(
@@ -173,7 +172,7 @@ class _CompostState extends State<Compost> {
                             child: Text(value),
                           );
                         }).toList(),
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Color(0xff000000),
                           fontSize: 16,
                           fontWeight: FontWeight.w400,
@@ -189,9 +188,9 @@ class _CompostState extends State<Compost> {
                     Container(
                       width: 130,
                       height: 50,
-                      padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                       decoration: BoxDecoration(
-                        color: Color(0xffffffff),
+                        color: const Color(0xffffffff),
                         borderRadius: BorderRadius.circular(0),
                       ),
                       child: DropdownButton(
@@ -204,7 +203,7 @@ class _CompostState extends State<Compost> {
                             ),
                           );
                         }).toList(),
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Color(0xff000000),
                           fontSize: 16,
                           fontWeight: FontWeight.w400,
@@ -219,7 +218,7 @@ class _CompostState extends State<Compost> {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                   width: 16,
                 ),
@@ -239,13 +238,16 @@ class _CompostState extends State<Compost> {
                     //   },
                     // );
                   },
-                  color: Color(0xff4eb447),
+                  color: const Color(0xff4eb447),
                   elevation: 8,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12.0),
                   ),
-                  padding: EdgeInsets.all(16),
-                  child: Text(
+                  padding: const EdgeInsets.all(16),
+                  textColor: const Color(0xffffffff),
+                  height: 50,
+                  minWidth: MediaQuery.of(context).size.width,
+                  child: const Text(
                     "Submit",
                     style: TextStyle(
                       fontSize: 16,
@@ -253,11 +255,8 @@ class _CompostState extends State<Compost> {
                       fontFamily: 'Roboto',
                     ),
                   ),
-                  textColor: Color(0xffffffff),
-                  height: 50,
-                  minWidth: MediaQuery.of(context).size.width,
                 ),
-                Align(
+                const Align(
                   alignment: Alignment.center,
                   child: Image(
                     image: AssetImage('images/composting.png'),

@@ -1,17 +1,17 @@
 //User registers to create an account in this screen
 //After pressing the "Continue" button, they are taken to Login.dart
 // Data is sent to the database under user node
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:compost_test/screens/constants.dart'; //text field properties in here
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:compost_test/firebase_options.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class Register extends StatefulWidget {
   final String accountType;
-  Register({required this.accountType});
+  const Register({super.key, required this.accountType});
   @override
   State<Register> createState() => _RegisterState();
 }
@@ -20,7 +20,8 @@ class _RegisterState extends State<Register> {
   final database = FirebaseDatabase.instance.ref();
   final DatabaseReference userRef =
       FirebaseDatabase.instance.ref().child("user");
-  final _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final TextEditingController nameController = TextEditingController();
   final TextEditingController houseNoController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
@@ -53,7 +54,29 @@ class _RegisterState extends State<Register> {
         email: emailController.text,
         password: passwordController.text,
       );
-
+      debugPrint('sampai sini 2');
+      // final createUser = _auth.currentUser;
+      // if (createUser != null) {
+      //   final newUserData = {
+      //     'name': nameController.text,
+      //     'houseNo': houseNoController.text,
+      //     'address': addressController.text,
+      //     'city': cityController.text,
+      //     'postcode': postcodeController.text,
+      //     'email': emailController.text,
+      //     'phone': phoneController.text,
+      //     'password': passwordController.text,
+      //     'userId': userCredential.user!.uid,
+      //     'accountType': widget.accountType,
+      //     'Parliamentary': '',
+      //     'DUN': '',
+      //     'daerah': '',
+      //   };
+      //
+      //   await _firestore.collection('users').doc(createUser.uid).set(
+      //       newUserData);
+      //   debugPrint('sampai sini 3');
+      // }
 
       // Store user information in the database
       String userId = userCredential.user!.uid;
@@ -74,7 +97,9 @@ class _RegisterState extends State<Register> {
         'daerah': '',
       });
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
@@ -82,27 +107,27 @@ class _RegisterState extends State<Register> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color(0xffffffff),
+        backgroundColor: const Color(0xffffffff),
         body: Padding(
-          padding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+          padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
-                Image(
+                const Image(
                   image: AssetImage('images/greensteps.png'),
                   height: 55,
                   width: 140,
                   fit: BoxFit.cover,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
-                Align(
+                const Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
                     "Sign Up",
@@ -116,7 +141,7 @@ class _RegisterState extends State<Register> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                   width: 16,
                 ),
@@ -181,12 +206,12 @@ class _RegisterState extends State<Register> {
                               !_obscureText; // Toggle the visibility state
                         });
                       },
-                      icon: Icon(Icons.visibility,
+                      icon: const Icon(Icons.visibility,
                           color: Color(0xffd2dae2), size: 24),
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
                 Row(
@@ -198,16 +223,16 @@ class _RegisterState extends State<Register> {
                           _checkboxChecked = value!;
                         });
                       },
-                      activeColor: Color(0xff4eb447),
-                      checkColor: Color(0xffffffff),
+                      activeColor: const Color(0xff4eb447),
+                      checkColor: const Color(0xffffffff),
                       splashRadius: 20,
                       value: _checkboxChecked,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 8,
                     ),
                     RichText(
-                      text: TextSpan(
+                      text: const TextSpan(
                         children: [
                           TextSpan(
                             text: 'I agree to the ',
@@ -250,7 +275,7 @@ class _RegisterState extends State<Register> {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
                 MaterialButton(
@@ -325,13 +350,16 @@ class _RegisterState extends State<Register> {
                       Navigator.pushNamed(context, 'Login');
                     }
                   },
-                  color: Color(0xff4eb447),
+                  color: const Color(0xff4eb447),
                   elevation: 8,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12.0),
                   ),
-                  padding: EdgeInsets.all(16),
-                  child: Text(
+                  padding: const EdgeInsets.all(16),
+                  textColor: const Color(0xffffffff),
+                  height: 50,
+                  minWidth: MediaQuery.of(context).size.width,
+                  child: const Text(
                     "Continue",
                     style: TextStyle(
                       fontSize: 16,
@@ -339,18 +367,15 @@ class _RegisterState extends State<Register> {
                       fontStyle: FontStyle.normal,
                     ),
                   ),
-                  textColor: Color(0xffffffff),
-                  height: 50,
-                  minWidth: MediaQuery.of(context).size.width,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                   width: 16,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
+                    const Text(
                       "Have an Account?",
                       textAlign: TextAlign.start,
                       style: TextStyle(
@@ -360,13 +385,13 @@ class _RegisterState extends State<Register> {
                         color: Color(0xffd2dae2),
                       ),
                     ),
-                    Container(
+                    SizedBox(
                       width: 65,
                       child: TextButton(
                         onPressed: () {
                           Navigator.pushNamed(context, 'Login');
                         },
-                        child: Text(
+                        child: const Text(
                           "Sign in",
                           style: TextStyle(
                             color: Color(0xff4eb447),
@@ -379,7 +404,7 @@ class _RegisterState extends State<Register> {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 200,
                   width: 16,
                 ),

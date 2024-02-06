@@ -6,9 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:compost_test/screens/UserPage/Compost.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:compost_test/screens/UserPage/MainScreenBar.dart';
+
+import '../../model/UserModel.dart';
+import '../../repository/auth.dart';
 
 class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
+
   @override
   State<MainScreen> createState() => _MainScreenState();
 }
@@ -29,12 +33,30 @@ class _MainScreenState extends State<MainScreen> {
   late User loggedInUser;
   late Future<Map<String, dynamic>> userData;
 
+  // Add a flag to check if data has been initialized
+  bool isDataInitialized = false;
+
+  //user model
+  late UserModel userInfo;
+
+
   @override
   void initState() {
     super.initState();
     fetchCompostData();
     loggedInUser = _auth.currentUser!;
     userData = getUserData(loggedInUser.uid);
+    initializeData();
+  }
+
+  Future<void> initializeData() async {
+    userInfo = (await auth.getUserDataCollection(loggedInUser.email!))!;
+    // Set the flag to true when data is initialized
+    isDataInitialized = true;
+    // Trigger a rebuild
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   Future<Map<String, dynamic>> getUserData(String userId) async {
@@ -80,20 +102,37 @@ class _MainScreenState extends State<MainScreen> {
     }
   }
 
+  @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
+
+    // Check if data is initialized (bool isDataInitialized) before accessing userInfo
+    if (!isDataInitialized) {
+      // Show a loading indicator or return an empty container
+      return Scaffold(
+        backgroundColor: const Color(0xffffffff),
+        body: SizedBox(
+          height: height,
+          width: width,
+          child: const Center(child: SizedBox( height: 40, width: 40, child: CircularProgressIndicator(color: Color(0xff4eb447)))),
+        ),
+      ); // Adjust this as needed
+    }
+
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color(0xffffffff),
+        backgroundColor: const Color(0xffffffff),
         body: Padding(
-          padding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+          padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
-                Align(
+                const Align(
                   alignment: Alignment.centerRight,
                   child: Image(
                     image: AssetImage('images/greensteps.png'),
@@ -106,15 +145,15 @@ class _MainScreenState extends State<MainScreen> {
                     future: userData,
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return CircularProgressIndicator();
+                        return const CircularProgressIndicator();
                       } else if (snapshot.hasError) {
                         return Text('Error: ${snapshot.error}');
                       } else {
                         Map<String, dynamic> userData =
                             snapshot.data as Map<String, dynamic>;
                         return Text(
-                          "Hello, ${userData['name']}",
-                          style: TextStyle(
+                          "Hello, ${userInfo.name}",
+                          style: const TextStyle(
                             fontWeight: FontWeight.w500,
                             fontFamily: 'Quicksand',
                             fontSize: 16,
@@ -123,10 +162,10 @@ class _MainScreenState extends State<MainScreen> {
                         );
                       }
                     }),
-                SizedBox(
+                const SizedBox(
                   height: 14,
                 ),
-                Text(
+                const Text(
                   "Get started",
                   style: TextStyle(
                     letterSpacing: 1.5,
@@ -136,20 +175,20 @@ class _MainScreenState extends State<MainScreen> {
                     color: Color(0xff4eb447),
                   ),
                 ),
-                Align(
+                const Align(
                   alignment: Alignment.center,
                   child: Image(
                     image: AssetImage('images/wormer.png'),
                     fit: BoxFit.contain,
                   ),
                 ),
-                Divider(
+                const Divider(
                   color: Color(0xff808080),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
-                Text(
+                const Text(
                   "Green  Achievements",
                   textAlign: TextAlign.start,
                   overflow: TextOverflow.clip,
@@ -160,14 +199,14 @@ class _MainScreenState extends State<MainScreen> {
                     color: Color(0xff000000),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                Container(
+                SizedBox(
                   height: 140,
                   width: MediaQuery.of(context).size.width,
                   child: Card(
-                    color: Color(0xff4eb447),
+                    color: const Color(0xff4eb447),
                     elevation: 8,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),
@@ -182,7 +221,7 @@ class _MainScreenState extends State<MainScreen> {
                         children: [
                           Text(
                             "GreenPoints: ${cumulativeGreenpoints.toStringAsFixed(2)}", //Greenpoints is displayed here
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontWeight: FontWeight.w500,
                               fontFamily: 'Roboto',
                               fontSize: 12,
@@ -191,7 +230,7 @@ class _MainScreenState extends State<MainScreen> {
                           ),
                           Text(
                             "CO2e Reduction: ${cumulativeCO2e.toStringAsFixed(2)}", //co2e reduction is displayed here
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontWeight: FontWeight.w500,
                               fontFamily: 'Roboto',
                               fontSize: 12,
@@ -200,7 +239,7 @@ class _MainScreenState extends State<MainScreen> {
                           ),
                           Text(
                             "Food Waste Composted: ${cumulativeWeight.toStringAsFixed(2)}", //total weight is displayed here
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontWeight: FontWeight.w500,
                               fontFamily: 'Roboto',
                               fontSize: 12,
@@ -212,10 +251,10 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                Text(
+                const Text(
                   "Source Seperation 101",
                   textAlign: TextAlign.start,
                   overflow: TextOverflow.clip,
@@ -226,14 +265,14 @@ class _MainScreenState extends State<MainScreen> {
                     color: Color(0xff000000),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                Container(
+                SizedBox(
                   height: 140,
                   width: MediaQuery.of(context).size.width,
                   child: Card(
-                    color: Color(0xffb4d5f8),
+                    color: const Color(0xffb4d5f8),
                     elevation: 8,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),
@@ -242,7 +281,7 @@ class _MainScreenState extends State<MainScreen> {
                       padding: const EdgeInsets.fromLTRB(10, 35, 0, 0),
                       child: Column(
                         children: [
-                          Text(
+                          const Text(
                             "Explore how you can easily source seperate waste into three effective categories and contribute to sustainable future",
                             style: TextStyle(
                               fontWeight: FontWeight.w800,
@@ -257,15 +296,15 @@ class _MainScreenState extends State<MainScreen> {
                               padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
                               child: OutlinedButton(
                                 style: OutlinedButton.styleFrom(
-                                  side: BorderSide(
+                                  side: const BorderSide(
                                     color: Color(0xff000000),
                                   ),
-                                  foregroundColor: Color(0xff000000),
+                                  foregroundColor: const Color(0xff000000),
                                 ),
                                 onPressed: () {
                                   //link to social media or website, ask Fiona and Jolene
                                 },
-                                child: Text(
+                                child: const Text(
                                   'Learn More',
                                   style: TextStyle(
                                     fontWeight: FontWeight.w800,
@@ -279,10 +318,10 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                Text(
+                const Text(
                   "Why Compost?",
                   textAlign: TextAlign.start,
                   overflow: TextOverflow.clip,
@@ -293,20 +332,20 @@ class _MainScreenState extends State<MainScreen> {
                     color: Color(0xff000000),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                Container(
+                SizedBox(
                   height: 200,
                   width: MediaQuery.of(context).size.width,
                   child: Card(
-                    color: Color(0xfff8dada),
+                    color: const Color(0xfff8dada),
                     elevation: 8,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(
+                    child: const Padding(
+                      padding: EdgeInsets.only(
                         left: 10,
                       ),
                       child: Column(
@@ -363,7 +402,7 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
               ],

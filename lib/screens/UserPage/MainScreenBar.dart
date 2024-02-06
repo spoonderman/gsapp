@@ -12,9 +12,14 @@ import 'package:compost_test/screens/UserPage/MainScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 
+import '../../model/UserModel.dart';
+import '../../repository/auth.dart';
+
 
 
 class MainScreenBar extends StatefulWidget {
+  const MainScreenBar({super.key});
+
   @override
   State<MainScreenBar> createState() => MainScreenBarState();
 }
@@ -32,22 +37,38 @@ class MainScreenBarState extends State<MainScreenBar> {
   late Future<Map<String, dynamic>> userData;
   final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
 
+  // Add a flag to check if data has been initialized
+  bool isDataInitialized = false;
+
+  //user model
+  late UserModel userInfo;
+
   @override
   void initState() {
     super.initState();
     getCurrentUser();
     loggedInUser = _auth.currentUser!;
     userData = getUserData(loggedInUser.uid);
+    initializeData();
+  }
+
+  Future<void> initializeData() async {
+    userInfo = (await auth.getUserDataCollection(loggedInUser.email!))!;
+    // Set the flag to true when data is initialized
+    isDataInitialized = true;
+    // Trigger a rebuild
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   void getCurrentUser() async {
     try {
-      final user = await _auth.currentUser;
+      final user = _auth.currentUser;
       if (user != null) {
         setState(() {
           loggedInUser = user;
         });
-        print(loggedInUser.email);
         fetchCompostData();
       }
     } catch (e) {
@@ -98,21 +119,37 @@ class MainScreenBarState extends State<MainScreenBar> {
   }
 
   int _currentPageIndex = 0;
-  List<Widget> _widgetOptions = <Widget>[
-    MainScreen(),
-    Compost(),
+  final List<Widget> _widgetOptions = <Widget>[
+    const MainScreen(),
+    const Compost(),
   ];
 
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
+
+    // Check if data is initialized (bool isDataInitialized) before accessing userInfo
+    if (!isDataInitialized) {
+      // Show a loading indicator or return an empty container
+      return Scaffold(
+        backgroundColor: const Color(0xffffffff),
+        body: SizedBox(
+          height: height,
+          width: width,
+          child: const Center(child: SizedBox( height: 40, width: 40, child: CircularProgressIndicator(color: Color(0xff4eb447)))),
+        ),
+      ); // Adjust this as needed
+    }
+
     return Scaffold(
       bottomNavigationBar: NavigationBarTheme(
         data: NavigationBarThemeData(
-          indicatorColor: Color(0xffffffff),
-          backgroundColor: Color(0xffffffff),
+          indicatorColor: const Color(0xffffffff),
+          backgroundColor: const Color(0xffffffff),
           elevation: 20,
           labelTextStyle: MaterialStateProperty.all(
-            TextStyle(
+            const TextStyle(
               fontFamily: 'Roboto',
               fontSize: 15,
             ),
@@ -161,12 +198,12 @@ class MainScreenBarState extends State<MainScreenBar> {
         ),
       ),
       body: [
-        MainScreen(),
-        Compost(),
+        const MainScreen(),
+        const Compost(),
       ][_currentPageIndex],
       key: _drawerKey,
       drawer: SafeArea(
-        child: Container(
+        child: SizedBox(
           width: 200,
           child: Drawer(
             child: ListView(
@@ -181,69 +218,72 @@ class MainScreenBarState extends State<MainScreenBar> {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.close,
                           color: Color(0xff4eb447),
                           size: 24,
                         ),
                       ),
                     ),
-                    Text(
+                    const Text(
                       'Household Account',
                       style: TextStyle(
                           color: Color(0xff4eb447),
                           fontSize: 12,
                           fontWeight: FontWeight.w600),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
-                    FutureBuilder(
-                        future: userData,
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return CircularProgressIndicator();
-                          } else if (snapshot.hasError) {
-                            return Text('Error: ${snapshot.error}');
-                          } else {
-                            Map<String, dynamic> userData =
-                                snapshot.data as Map<String, dynamic>;
-                            return Text(
-                              '${userData['name']}',
-                              style: TextStyle(
-                                  color: Color(0xff000000),
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold),
-                            );
-                          }
-                        }),
-                    SizedBox(
+                    // FutureBuilder(
+                    //     future: userData,
+                    //     builder: (context, snapshot) {
+                    //       if (snapshot.connectionState ==
+                    //           ConnectionState.waiting) {
+                    //         return const CircularProgressIndicator();
+                    //       } else if (snapshot.hasError) {
+                    //         return Text('Error: ${snapshot.error}');
+                    //       } else {
+                    //         Map<String, dynamic> userData =
+                    //             snapshot.data as Map<String, dynamic>;
+                    //         return Text(
+                    //           '${userData['name']}',
+                    //           style: const TextStyle(
+                    //               color: Color(0xff000000),
+                    //               fontSize: 15,
+                    //               fontWeight: FontWeight.bold),
+                    //         );
+                    //       }
+                    //     }),
+                    Text(userInfo.name,
+                      style: const TextStyle(
+                        color: Color(0xff000000),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600),),
+                    const SizedBox(
                       height: 10,
                     ),
-                    Text(
-                      '0123456789',
-                      style: TextStyle(
+                    Text(userInfo.phone,
+                      style: const TextStyle(
                           color: Color(0xff000000),
                           fontSize: 12,
-                          fontWeight: FontWeight.w600),
-                    ),
-                    SizedBox(
+                          fontWeight: FontWeight.w600),),
+                    const SizedBox(
                       height: 10,
                     ),
                     Text(
                       '${cumulativeGreenpoints.toStringAsFixed(2)} GreenPoints',
-                      style: TextStyle(
+                      style: const TextStyle(
                           color: Color(0xff4eb447),
                           fontSize: 12,
                           fontWeight: FontWeight.w600),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Text(
                       '${cumulativeCO2e.toStringAsFixed(2)} KgCO2e',
-                      style: TextStyle(
+                      style: const TextStyle(
                           color: Color(0xff4eb447),
                           fontSize: 12,
                           fontWeight: FontWeight.w600),
@@ -251,11 +291,11 @@ class MainScreenBarState extends State<MainScreenBar> {
                   ],
                 ),
                 ListTile(
-                  leading: Icon(
+                  leading: const Icon(
                     Icons.home,
                     color: Color(0xffd2dae2),
                   ),
-                  trailing: Icon(
+                  trailing: const Icon(
                     Icons.keyboard_arrow_right_outlined,
                     size: 20,
                     color: Color(0xffd2dae2),
@@ -272,11 +312,11 @@ class MainScreenBarState extends State<MainScreenBar> {
                     Navigator.pop(context);
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 50,
                 ),
                 ListTile(
-                  trailing: Icon(
+                  trailing: const Icon(
                     Icons.keyboard_arrow_right_outlined,
                     size: 20,
                     color: Color(0xffd2dae2),
@@ -295,7 +335,7 @@ class MainScreenBarState extends State<MainScreenBar> {
                   },
                 ),
                 ListTile(
-                  trailing: Icon(
+                  trailing: const Icon(
                     Icons.keyboard_arrow_right_outlined,
                     size: 20,
                     color: Color(0xffd2dae2),
@@ -314,7 +354,7 @@ class MainScreenBarState extends State<MainScreenBar> {
                   },
                 ),
                 ListTile(
-                  trailing: Icon(
+                  trailing: const Icon(
                     Icons.keyboard_arrow_right_outlined,
                     size: 20,
                     color: Color(0xffd2dae2),
@@ -333,7 +373,7 @@ class MainScreenBarState extends State<MainScreenBar> {
                   },
                 ),
                 ListTile(
-                  trailing: Icon(
+                  trailing: const Icon(
                     Icons.keyboard_arrow_right_outlined,
                     size: 20,
                     color: Color(0xffd2dae2),
@@ -352,7 +392,7 @@ class MainScreenBarState extends State<MainScreenBar> {
                   },
                 ),
                 ListTile(
-                  leading: Icon(
+                  leading: const Icon(
                     Icons.logout,
                     color: Color(0xffd2dae2),
                   ),
@@ -369,7 +409,7 @@ class MainScreenBarState extends State<MainScreenBar> {
                     Navigator.pushNamed(context, 'HomeScreen');
                   },
                 ),
-                Padding(
+                const Padding(
                   padding: EdgeInsets.fromLTRB(56, 0, 0, 0),
                   child: Text(
                     'version 1.0',
@@ -379,7 +419,7 @@ class MainScreenBarState extends State<MainScreenBar> {
                     ),
                   ),
                 ),
-                Row(
+                const Row(
                   children: [
                     SizedBox(
                       width: 50,

@@ -10,6 +10,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 // Does not contain bottom navigation bar
 
 class Reward extends StatefulWidget {
+  const Reward({super.key});
+
   @override
   State<Reward> createState() => RewardState();
 }
@@ -62,12 +64,12 @@ class RewardState extends State<Reward> {
     return SafeArea(
       child: Scaffold(
         body: Padding(
-          padding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+          padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 16,
                   width: 16,
                 ),
@@ -78,14 +80,14 @@ class RewardState extends State<Reward> {
                       onPressed: (){
                         Navigator.pop(context);
                         },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.arrow_back,
                         color: Color(0xff4eb447),
                         size: 24,
                       ),
                     ),
 
-                    Image(
+                    const Image(
                       image: AssetImage('images/greensteps.png'),
                       height: 50,
                       width: 140,
@@ -93,15 +95,15 @@ class RewardState extends State<Reward> {
                     ),
                   ],
                 ),
-                Divider(
+                const Divider(
                   color: Color(0xffd2dae2),
                   thickness: 3,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                   width: 16,
                 ),
-                Text(
+                const Text(
                   "Great Job!",
                   style: TextStyle(
                     fontWeight: FontWeight.w900,
@@ -111,13 +113,13 @@ class RewardState extends State<Reward> {
                   ),
                 ),
 
-                Image(
+                const Image(
                   image: AssetImage('images/Reward.png'),
                   height:130,
                   fit: BoxFit.contain,
                 ),
 
-                Text(
+                const Text(
                   "You've earned",
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
@@ -126,22 +128,22 @@ class RewardState extends State<Reward> {
                     color: Color(0xff000000),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 8,
                 ),
                 RichText(
                   text: TextSpan(
                     children: [
                       TextSpan(
-                        text: '${greenpoints.toStringAsFixed(2)}',
-                        style: TextStyle(
+                        text: greenpoints.toStringAsFixed(2),
+                        style: const TextStyle(
                           fontWeight: FontWeight.w600,
                           fontFamily: 'Roboto',
                           fontSize: 16,
                           color: Color(0xff4eb447),
                         ),
                       ),
-                      TextSpan(
+                      const TextSpan(
                         text: ' GreenPoints',
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
@@ -153,21 +155,21 @@ class RewardState extends State<Reward> {
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 8,
                 ),
-                Icon(
+                const Icon(
                   Icons.add,
                   color: Color(0xff212435),
                   size: 24,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 8,
                 ),
                 RichText(
                   text: TextSpan(
                     children: [
-                      TextSpan(
+                      const TextSpan(
                         text: 'Reduced',
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
@@ -178,14 +180,14 @@ class RewardState extends State<Reward> {
                       ),
                       TextSpan(
                         text: ' ${CO2e.toStringAsFixed(2)} kg',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontWeight: FontWeight.w600,
                           fontFamily: 'Roboto',
                           fontSize: 16,
                           color: Color(0xff4eb447),
                         ),
                       ),
-                      TextSpan(
+                      const TextSpan(
                         text: ' CO2 equivalent',
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
@@ -197,7 +199,7 @@ class RewardState extends State<Reward> {
                     ],
                   ),
                 ),
-                SizedBox(height:180,),
+                const SizedBox(height:180,),
               ],
             ),
           ),

@@ -8,11 +8,9 @@ import 'package:compost_test/screens/UserPage/MainScreenBar.dart';
 import 'package:compost_test/screens/UserPage/MainScreen.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 //firebase imports
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:compost_test/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:provider/provider.dart';
 
 //code is run from here
 void main() async{
@@ -30,9 +28,9 @@ class MyApp extends StatelessWidget {
     return  MaterialApp(
         home: AnimatedSplashScreen(
           splash: 'images/splashscreenlogo.png',
-          nextScreen:HomeScreen(),
+          nextScreen:const HomeScreen(),
           splashTransition: SplashTransition.fadeTransition,
-          animationDuration: Duration(seconds:0),
+          animationDuration: const Duration(seconds:0),
         ),
     onGenerateRoute: (settings) {
       if (settings.name == 'Register') {
@@ -43,13 +41,14 @@ class MyApp extends StatelessWidget {
           builder: (context) => Register(accountType: accountType ?? ''),
         );
       }
+      return null;
     },
         routes: {
-          'HomeScreen': (context) => HomeScreen(),
-          'Login': (context) => Login(),
-          'MainScreenBar': (context) => MainScreenBar(),
-          'Reward': (context) => Reward(),
-          'MainScreen':(context)=>MainScreen(),
+          'HomeScreen': (context) => const HomeScreen(),
+          'Login': (context) => const Login(),
+          'MainScreenBar': (context) => const MainScreenBar(),
+          'Reward': (context) => const Reward(),
+          'MainScreen':(context)=>const MainScreen(),
 
         },
       );

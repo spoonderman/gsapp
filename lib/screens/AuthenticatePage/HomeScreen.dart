@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 
 
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
   void _navigateToRegistrationScreen(BuildContext context, String accountType) {
     Navigator.push(
       context,
@@ -17,25 +19,25 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffffffff),
+      backgroundColor: const Color(0xffffffff),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 80,
               width: 16,
             ),
-            Image(
+            const Image(
               image: AssetImage('images/greensteps.png'),
               height: 50,
               width: 150,
               fit: BoxFit.cover,
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
               width: 16,
             ),
-            Text(
+            const Text(
               "Food Waste to Wealth",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
@@ -44,12 +46,12 @@ class HomeScreen extends StatelessWidget {
                 color: Color(0xff4eb447),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
               width: 16,
             ),
             RichText(
-              text: TextSpan(
+              text: const TextSpan(
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                   fontFamily: 'Roboto',
@@ -70,11 +72,11 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 38,
               width: 16,
             ),
-            Align(
+            const Align(
               alignment: Alignment(-0.6, 0.0),
               child: Text(
                 "Account Registration",
@@ -86,7 +88,7 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
               width: 16,
             ),
@@ -95,13 +97,16 @@ class HomeScreen extends StatelessWidget {
                 _navigateToRegistrationScreen(context, "household");
                 // Navigator.pushNamed(context, 'Register');
               },
-              color: Color(0xff4eb447),
+              color: const Color(0xff4eb447),
               elevation: 8,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(5.0),
               ),
-              padding: EdgeInsets.all(16),
-              child: Text(
+              padding: const EdgeInsets.all(16),
+              textColor: const Color(0xffffffff),
+              height: 40,
+              minWidth: 260,
+              child: const Text(
                 "Household",
                 style: TextStyle(
                   fontSize: 12,
@@ -109,11 +114,8 @@ class HomeScreen extends StatelessWidget {
                   fontFamily: 'Roboto',
                 ),
               ),
-              textColor: Color(0xffffffff),
-              height: 40,
-              minWidth: 260,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
               width: 16,
             ),
@@ -122,13 +124,16 @@ class HomeScreen extends StatelessWidget {
                 _navigateToRegistrationScreen(context, "business");
                 // Navigator.pushNamed(context, 'Register');
               },
-              color: Color(0xff4eb447),
+              color: const Color(0xff4eb447),
               elevation: 8,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(5.0),
               ),
-              padding: EdgeInsets.all(16),
-              child: Text(
+              padding: const EdgeInsets.all(16),
+              textColor: const Color(0xffffffff),
+              height: 10,
+              minWidth: 260,
+              child: const Text(
                 "Business",
                 style: TextStyle(
                   fontSize: 12,
@@ -136,15 +141,12 @@ class HomeScreen extends StatelessWidget {
                   fontFamily: 'Roboto',
                 ),
               ),
-              textColor: Color(0xffffffff),
-              height: 10,
-              minWidth: 260,
             ),
-            SizedBox(
+            const SizedBox(
               height: 70,
               width: 16,
             ),
-            Image(
+            const Image(
               image: AssetImage('images/hug.png'),
               height: 120,
               width: 200,

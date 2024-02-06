@@ -6,6 +6,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class Login extends StatefulWidget {
+  const Login({super.key});
+
   @override
   State<Login> createState() => _LoginState();
 }
@@ -21,17 +23,17 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color(0xffffffff),
+        backgroundColor: const Color(0xffffffff),
         body: Padding(
-          padding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+          padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
-                Align(
+                const Align(
                   alignment: Alignment.centerRight,
                   child: FittedBox(
                     child: Image(
@@ -42,10 +44,10 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 85,
                 ),
-                Text(
+                const Text(
                   "Sign in",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -54,10 +56,10 @@ class _LoginState extends State<Login> {
                     color: Color(0xff000000),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
-                Text(
+                const Text(
                   "Welcome to GreenSteps!",
                   style: TextStyle(
                     fontWeight: FontWeight.w900,
@@ -66,7 +68,7 @@ class _LoginState extends State<Login> {
                     color: Color(0xffd2dae2),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                 ),
                 TextField(
@@ -89,12 +91,12 @@ class _LoginState extends State<Login> {
                           _obscureText = !_obscureText; // Toggle the visibility state
                         });
                       },
-                      icon: Icon(Icons.visibility,
+                      icon: const Icon(Icons.visibility,
                           color: Color(0xffd2dae2), size: 24),
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                   width: 16,
                 ),
@@ -131,10 +133,8 @@ class _LoginState extends State<Login> {
                       try {
                         final user = await _auth.signInWithEmailAndPassword(
                             email: emailController.text, password: passwordController.text);
-                        if (user != null) {
-                          Navigator.pushNamed(context, 'MainScreenBar');
-                        }
-                      } catch (e) {
+                        Navigator.pushNamed(context, 'MainScreenBar');
+                                            } catch (e) {
                         Fluttertoast.showToast(
                           msg: "Authentication error. Please check your email and password.",
                           toastLength: Toast.LENGTH_SHORT,
@@ -146,13 +146,16 @@ class _LoginState extends State<Login> {
                       }
                     }
                   },
-                  color: Color(0xff4eb447),
+                  color: const Color(0xff4eb447),
                   elevation: 8,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12.0),
                   ),
-                  padding: EdgeInsets.all(16),
-                  child: Text(
+                  padding: const EdgeInsets.all(16),
+                  textColor: const Color(0xffffffff),
+                  height: 50,
+                  minWidth: MediaQuery.of(context).size.width,
+                  child: const Text(
                     "Sign in",
                     style: TextStyle(
                       fontSize: 16,
@@ -160,18 +163,15 @@ class _LoginState extends State<Login> {
                       fontFamily: 'Roboto',
                     ),
                   ),
-                  textColor: Color(0xffffffff),
-                  height: 50,
-                  minWidth: MediaQuery.of(context).size.width,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 16,
                   width: 16,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
+                    const Text(
                       "Forgot Password?",
                       style: TextStyle(
                         fontWeight: FontWeight.w700,
@@ -180,16 +180,16 @@ class _LoginState extends State<Login> {
                         color: Color(0xffd2dae2),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 130,
                     ),
-                    Container(
+                    SizedBox(
                       width: 66,
                       child: TextButton(
                         onPressed: () {
                           Navigator.pushNamed(context, 'Register');
                         },
-                        child: Text(
+                        child: const Text(
                           "Sign up",
                           style: TextStyle(
                             color: Color(0xff4eb447),
