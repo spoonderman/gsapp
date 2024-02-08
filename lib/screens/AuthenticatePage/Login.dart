@@ -21,8 +21,10 @@ class _LoginState extends State<Login> {
   @override
   void initState() {
     super.initState();
-    emailController.text = 'abu@gmail.com';
-    passwordController.text = 'aaaaaa';
+    // This is only for debugging purposes, as you have use sharedpreference to save login information
+    // this is for easier workflow so i dont need to key-in login credential everytime i restart the app
+    // emailController.text = 'abu@gmail.com';
+    // passwordController.text = 'aaaaaa';
   }
 
 

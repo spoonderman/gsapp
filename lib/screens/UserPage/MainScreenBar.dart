@@ -281,7 +281,7 @@ class MainScreenBarState extends State<MainScreenBar> {
                       height: 10,
                     ),
                     Text(
-                      '${cumulativeGreenpoints.toStringAsFixed(2)} GreenPoints',
+                      '${compInfo.greenpoints} GreenPoints',
                       style: const TextStyle(
                           color: Color(0xff4eb447),
                           fontSize: 12,
@@ -291,7 +291,7 @@ class MainScreenBarState extends State<MainScreenBar> {
                       height: 10,
                     ),
                     Text(
-                      '${cumulativeCO2e.toStringAsFixed(2)} KgCO2e',
+                      '${compInfo.cumulativeCo2e} KgCO2e',
                       style: const TextStyle(
                           color: Color(0xff4eb447),
                           fontSize: 12,
