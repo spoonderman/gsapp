@@ -6,8 +6,10 @@ class CompostModel extends Equatable {
   final String cumulativeGreenPoints;
   final String date;
   final String greenpoints;
-  final double totalWeight;
+  // specify the datatype to make sure it stays int or double, using dynamic like this might cause problem in the future
+  final dynamic totalWeight;
   final String userId;
+  // specify the datatype to make sure it stays int or double, using dynamic like this might cause problem in the future
   final dynamic weight;
 
   const CompostModel({
@@ -29,9 +31,9 @@ class CompostModel extends Equatable {
         date: map['date'] ?? "",
         greenpoints: map['greenpoints'] ?? "",
         // Please fix the attribute name so its not separated 'total weight' -> 'totalWeight'/'total_weight' etc
-        totalWeight: map['total weight'] ?? "",
+        totalWeight: map['total weight'] ?? 0.0,
         userId: map['userId'] ?? "",
-        weight: map['weight'] ?? "",
+        weight: map['weight'] ?? 0.0,
     );
   }
 
@@ -43,9 +45,9 @@ class CompostModel extends Equatable {
       date: json['date'] ?? "",
       greenpoints: json['greenpoints'] ?? "",
       // Please fix the attribute name so its not separated 'total weight' -> 'totalWeight'/'total_weight' etc
-      totalWeight: json['total weight'] ?? "",
+      totalWeight: json['total weight'] ?? 0.0,
       userId: json['userId'] ?? "",
-      weight: json['weight'] ?? "",
+      weight: json['weight'] ?? 0.0,
     );
   }
 
