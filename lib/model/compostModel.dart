@@ -7,6 +7,9 @@ class CompostModel extends Equatable {
   final String date;
   final String greenpoints;
   // specify the datatype to make sure it stays int or double, using dynamic like this might cause problem in the future
+  // either way its fine for now since firebase only have 'number' as datatype
+  // make sure in the future development you specify that it only accept number input on the 'saveCompostData' (keyboard type)
+  // and make sure it again when uploading to server as some people might use copy paste function to bypass the number restriction
   final dynamic totalWeight;
   final String userId;
   // specify the datatype to make sure it stays int or double, using dynamic like this might cause problem in the future

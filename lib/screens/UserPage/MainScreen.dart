@@ -43,7 +43,6 @@ class _MainScreenState extends State<MainScreen> {
   late UserModel userInfo;
   late CompostModel compInfo;
 
-
   @override
   void initState() {
     super.initState();
@@ -126,6 +125,26 @@ class _MainScreenState extends State<MainScreen> {
         ),
       ); // Adjust this as needed
     }
+
+    // Will return this is inDataInitialized = true,
+    // For easier navigation purpose, use the 'Extract Method' or 'Extract Flutter Widget' function to separate your code
+    // Make a separate file for color so you dont have to copy paste the hex code everytime (color.dart)
+    // For example
+    // class Colorz {
+    //   // MAIN COLOR (usually up to 4)
+    //   Color ColorPrimary = const Color(0xff4eb447);
+    //   Color ColorSecondary = const Color(0xffffffff);
+    //
+    //   // This is an example for when you have a certain font to change color between dark/light mode theme
+    //   // FONT COLOR MANAGEMENT FOR TEXT WITH BLUE COLORS(Hyperlink)
+    //    Color getHyperlink(BuildContext context) {
+    //      return Theme.of(context).brightness == Brightness.light
+    //          ? const Color(0xFF2196F3) //Font Colors for when in light mode
+    //          : const Color(0xFF84C7FD); //Font Colors for when in dark mode
+    //    }
+    //
+    // };
+    // Next time you can just call the color like this Colorz().ColorPrimary
 
     return SafeArea(
       child: Scaffold(
