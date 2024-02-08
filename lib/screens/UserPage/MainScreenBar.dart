@@ -6,6 +6,8 @@
 // Profile button opens a side drawer
 //TODO: Issue with fetching and displaying data in drawer, Fields: "accountType","name", "phone"
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:compost_test/screens/UserPage/Compost.dart';
 import 'package:compost_test/screens/UserPage/MainScreen.dart';
@@ -13,7 +15,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 import '../../model/UserModel.dart';
+import '../../model/compostModel.dart';
 import '../../repository/auth.dart';
+import '../../repository/compostData.dart';
 
 
 
@@ -34,14 +38,16 @@ class MainScreenBarState extends State<MainScreenBar> {
   double cumulativeWeight = 0;
   double cumulativeGreenpoints = 0;
   double cumulativeCO2e = 0;
-  late Future<Map<String, dynamic>> userData;
   final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
+  late Future<Map<String, dynamic>> userData;
+  late Future<Map<String, dynamic>> compostData;
 
   // Add a flag to check if data has been initialized
   bool isDataInitialized = false;
 
-  //user model
+  //initialize the model
   late UserModel userInfo;
+  late CompostModel compInfo;
 
   @override
   void initState() {
@@ -53,8 +59,11 @@ class MainScreenBarState extends State<MainScreenBar> {
   }
 
   Future<void> initializeData() async {
+    // this one get the user information
     userInfo = (await auth.getUserDataCollection(loggedInUser.email!))!;
-    // Set the flag to true when data is initialized
+    // this one get the user compose information
+    compInfo = (await CompostData.getUserCompostData(loggedInUser.uid!))!;
+    // Set the flag to true when all data is initialized
     isDataInitialized = true;
     // Trigger a rebuild
     if (mounted) {

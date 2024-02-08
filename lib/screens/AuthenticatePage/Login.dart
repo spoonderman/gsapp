@@ -18,6 +18,13 @@ class _LoginState extends State<Login> {
   final TextEditingController passwordController = TextEditingController();
   bool _obscureText = true;
 
+  @override
+  void initState() {
+    super.initState();
+    emailController.text = 'abu@gmail.com';
+    passwordController.text = 'aaaaaa';
+  }
+
 
   @override
   Widget build(BuildContext context) {

@@ -8,7 +8,9 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../model/UserModel.dart';
+import '../../model/compostModel.dart';
 import '../../repository/auth.dart';
+import '../../repository/compostData.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -32,12 +34,14 @@ class _MainScreenState extends State<MainScreen> {
   String userAccountType = "";
   late User loggedInUser;
   late Future<Map<String, dynamic>> userData;
+  late Future<Map<String, dynamic>> compostData;
 
   // Add a flag to check if data has been initialized
   bool isDataInitialized = false;
 
-  //user model
+  //initialize the model
   late UserModel userInfo;
+  late CompostModel compInfo;
 
 
   @override
@@ -50,8 +54,11 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   Future<void> initializeData() async {
+    // this one gets the user information
     userInfo = (await auth.getUserDataCollection(loggedInUser.email!))!;
-    // Set the flag to true when data is initialized
+    // this one gets the user compose information
+    compInfo = (await CompostData.getUserCompostData(loggedInUser.uid!))!;
+    // Set the flag to true when all data is initialized
     isDataInitialized = true;
     // Trigger a rebuild
     if (mounted) {
@@ -220,7 +227,7 @@ class _MainScreenState extends State<MainScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "GreenPoints: ${cumulativeGreenpoints.toStringAsFixed(2)}", //Greenpoints is displayed here
+                            "GreenPoints: ${compInfo.greenpoints}", //Greenpoints is displayed here
                             style: const TextStyle(
                               fontWeight: FontWeight.w500,
                               fontFamily: 'Roboto',
@@ -229,7 +236,7 @@ class _MainScreenState extends State<MainScreen> {
                             ),
                           ),
                           Text(
-                            "CO2e Reduction: ${cumulativeCO2e.toStringAsFixed(2)}", //co2e reduction is displayed here
+                            "CO2e Reduction: ${compInfo.co2e}", //co2e reduction is displayed here
                             style: const TextStyle(
                               fontWeight: FontWeight.w500,
                               fontFamily: 'Roboto',
@@ -238,7 +245,7 @@ class _MainScreenState extends State<MainScreen> {
                             ),
                           ),
                           Text(
-                            "Food Waste Composted: ${cumulativeWeight.toStringAsFixed(2)}", //total weight is displayed here
+                            "Food Waste Composted: ${compInfo.totalWeight.toStringAsFixed(2)}", //total weight is displayed here
                             style: const TextStyle(
                               fontWeight: FontWeight.w500,
                               fontFamily: 'Roboto',
