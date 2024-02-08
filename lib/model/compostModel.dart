@@ -8,7 +8,7 @@ class CompostModel extends Equatable {
   final String greenpoints;
   final double totalWeight;
   final String userId;
-  final double weight;
+  final dynamic weight;
 
   const CompostModel({
    required this.co2e,
